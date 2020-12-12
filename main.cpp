@@ -2,7 +2,7 @@
 
 using namespace std;
 
-int** matrix_rotation(int**, int, bool);
+void matrix_rotation(int**, int, bool);
 void print_matrix(int**, int);
 
 int main()
@@ -29,11 +29,11 @@ int main()
     print_matrix(matrix, matrix_size);
 
     cout << "TURN CLOCKWISE:" << endl << endl;
-    matrix = matrix_rotation(matrix, matrix_size, true);
+    matrix_rotation(matrix, matrix_size, true);
     print_matrix(matrix, matrix_size);
 
     cout << "TURN COUNTERCLOCKWISE:" << endl << endl;
-    matrix = matrix_rotation(matrix, matrix_size, false);
+    matrix_rotation(matrix, matrix_size, false);
     print_matrix(matrix, matrix_size);
 
     for (int i = 0; i < matrix_size; i++)
@@ -45,25 +45,22 @@ int main()
     return 0;
 }
 
-int** matrix_rotation(int** matrix, int matrix_size, bool orientation)
+void matrix_rotation(int** matrix, int matrix_size, bool orientation)
 {
     int i = 0;
     int j = matrix_size-1;
 
     while(j - i >= 1)
     {
-        if(orientation == false)
+        for(int k = 0; k < j-i; k++)
         {
-            for(int k = 0; k < j-i; k++)
+            if(orientation == false)
             {
                 swap(matrix[i][i+k], matrix[j-k][i]);
                 swap(matrix[i][i+k], matrix[j][j-k]);
                 swap(matrix[i][i+k], matrix[i+k][j]);
             }
-        }
-        else
-        {
-            for(int k = 0; k < j-i; k++)
+            else
             {
                 swap(matrix[i][i+k], matrix[i+k][j]);
                 swap(matrix[i][i+k], matrix[j][j-k]);
@@ -73,8 +70,6 @@ int** matrix_rotation(int** matrix, int matrix_size, bool orientation)
         i += 1;
         j -= 1;
     }
-
-    return matrix;
 }
 
 void print_matrix(int** matrix, int n)
